@@ -53,13 +53,29 @@ class LinkedList
     temp_node
   end
 
-  # def pop
+  def pop
+  if self.size <= 1
+      temp_node = @head
+      @head = nil
+      @tail = nil
+    else
+    # last index = size + 1, previous node to tail = size - 2
+      @tail = self.at(self.size - 2)
+      temp_node = @tail.next
+      @tail.next = nil
+    end
 
-  # end
+    temp_node
+  end
+
+  def contains?(value)
+    # some code
+  end
 end
 
 class Node
-  attr_accessor :value, :next
+  attr_reader :value
+  attr_accessor :next
 
   def initialize(value = nil, next_node = nil)
     @value = value
@@ -81,7 +97,5 @@ my_list.append("Regrets")
 my_list.prepend("You")
 my_list.prepend("Make")
 my_list.prepend("I'll")
-
-my_list.size
 
 puts
