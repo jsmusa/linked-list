@@ -5,7 +5,7 @@ class LinkedList
     @tail = nil
   end
 
-  def append(value)
+  def prepend(value)
     case
     when !@head
       @head = Node.new(value)
@@ -18,6 +18,20 @@ class LinkedList
       @head = Node.new(value,temp_node)
     end
   end
+
+  # def append(value)
+  #   case
+  #   when !@head
+  #     @head = Node.new(value)
+  #   when !@head.next
+  #     @tail = 
+  #     @head = Node.new(value, @tail)
+  #   else
+  #     # temp_node points to previous head
+  #     temp_node = @head 
+  #     @head = Node.new(value,temp_node)
+  #   end
+  # end
 end
 
 class Node
@@ -30,9 +44,9 @@ class Node
 end
 
 my_list = LinkedList.new
-my_list.append("hello")
-my_list.append("world")
-my_list.append("goodbye")
-my_list.append("all")
+my_list.prepend("hello")
+my_list.prepend("world")
+my_list.prepend("goodbye")
+my_list.prepend("all")
 
 puts
