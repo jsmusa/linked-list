@@ -8,9 +8,7 @@ class LinkedList
   def prepend(value)
     if @head == nil
       @head = Node.new(value)
-    elsif @head.next == nil
       @tail = @head
-      @head = Node.new(value, @tail)
     else
       # temp_node points to previous head
       temp_node = @head 
@@ -21,11 +19,9 @@ class LinkedList
   def append(value)
     if @head == nil
       @head = Node.new(value)
-    elsif @head.next == nil
-      @tail = Node.new(value)
-      @head.next = @tail
+      @tail = @head
     else
-      # temp_node points to previous tail
+      # temp_node points to current tail
       temp_node = @tail
       @tail = Node.new(value)
       # makes temp_node's next point to tail
@@ -44,6 +40,22 @@ class LinkedList
 
     count
   end
+
+  def at(index)
+    temp_node = @head
+    count = 0
+
+    until count == index
+      temp_node = temp_node.next
+      count += 1
+    end
+
+    temp_node
+  end
+
+  # def pop
+
+  # end
 end
 
 class Node
