@@ -29,23 +29,28 @@ class LinkedList
     end
   end
 
-  def size
+  def each
     temp_node = @head
     count = 0
 
     until temp_node == nil
+      yield temp_node, count
       temp_node = temp_node.next
       count += 1
     end
+  end
 
-    count
+  def size
+    count = 0
+    self.each {count = count + 1}
+    count - 1
   end
 
   def at(index)
     temp_node = @head
     count = 0
 
-    until count == index
+    until count == index || count > self.size - 1 
       temp_node = temp_node.next
       count += 1
     end
@@ -69,7 +74,31 @@ class LinkedList
   end
 
   def contains?(value)
-    # some code
+    self.each {|temp_node| return true if temp_node.value == value}
+
+    false
+  end
+
+  def find(value)
+    self.each {|temp_node, count| return count if temp_node.value == value}
+
+    nil
+  end
+
+  def to_s
+    string = ""
+
+    self.each {|temp_node| string += "( #{temp_node.value} ) -> "}
+    
+    string + "nil"
+  end
+
+  def insert_at(value, index)
+    self.at(index)
+  end
+
+  def remove_at(index)
+  # some code
   end
 end
 
