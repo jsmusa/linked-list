@@ -35,6 +35,7 @@ class LinkedList
 
     until temp_node == nil
       yield temp_node, count
+
       temp_node = temp_node.next
       count += 1
     end
@@ -42,8 +43,10 @@ class LinkedList
 
   def size
     count = 0
+
     self.each {count = count + 1}
-    count - 1
+    
+    count
   end
 
   def at(index)
@@ -64,7 +67,7 @@ class LinkedList
       @head = nil
       @tail = nil
     else
-    # last index = size + 1, previous node to tail = size - 2
+    # last index = size, previous node to tail = size - 1
       @tail = self.at(self.size - 2)
       temp_node = @tail.next
       @tail.next = nil
@@ -94,11 +97,32 @@ class LinkedList
   end
 
   def insert_at(value, index)
-    self.at(index)
+    if index > self.size
+      return nil
+    elsif index == self.size
+      self.append(value)
+    elsif index > 0
+      previous_node = self.at(index - 1)
+      next_node = self.at(index)
+      inserted_node = Node.new(value, next_node)
+      previous_node.next = inserted_node
+    elsif index == 0
+      self.prepend(value)
+    end
   end
 
   def remove_at(index)
-  # some code
+    if index > self.size
+      return nil
+    elsif index == self.size
+      self.pop
+    elsif index > 0
+      previous_node = self.at(index - 1)
+      next_node = self.at(index + 1)
+      previous_node.next = next_node
+    elsif index == 0
+      @head = self.at(1)
+    end
   end
 end
 
@@ -111,20 +135,3 @@ class Node
     @next = next_node
   end
 end
-
-my_list = LinkedList.new
-
-my_list.prepend("Dying")
-my_list.prepend("Not")
-my_list.prepend("Regret")
-
-my_list.append("I")
-my_list.append("Don't")
-my_list.append("Do")
-my_list.append("Regrets")
-
-my_list.prepend("You")
-my_list.prepend("Make")
-my_list.prepend("I'll")
-
-puts
